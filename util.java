@@ -30,6 +30,14 @@ public class Util {
 		}
 		return data;
 	}
+	public static synchronized String fillString(String dataStr, String filler) {
+		int inputSize = dataStr.length() + 8;
+		while (dataStr.length() != inputSize)
+			dataStr += filler;
+		while ((dataStr.getBytes().length % 8) != 0)
+			dataStr += filler;
+		return dataStr;
+	}
 
 	
 }
