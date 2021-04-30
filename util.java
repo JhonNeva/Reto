@@ -5,6 +5,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
+import javax.xml.bind.annotation.adapters.HexBinaryAdapter;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,6 +38,20 @@ public class Util {
 		while ((dataStr.getBytes().length % 6) != 0)
 			dataStr += filler;
 		return dataStr;
+	}
+	public static byte[] zeroBytePadding(byte[] byteArray) {
+		int padding = byteArray.length % 16;
+		int cryptedTextBufferPadding = byteArray.length + 16 - padding;
+		byte[] padded = new byte[cryptedTextBufferPadding];
+		System.arraycopy(byteArray, 0, padded, 0, byteArray.length);
+		Arrays.fill(padded, byteArray.length, cryptedTextBufferPadding, (byte) 0x0);
+		return padded;
+
+	}
+
+	public static synchronized String bytesToHex(byte[] bytes) {
+		HexBinaryAdapter adapter = new HexBinaryAdapter();
+		return adapter.marshal(bytes);
 	}
 
 
