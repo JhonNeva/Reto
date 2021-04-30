@@ -24,20 +24,21 @@ public class Util {
 
 	public static byte[] hexStringToByteArray(String s) {
 		int len = s.length();
-		byte[] data = new byte[len / 2];
-		for (int i = 0; i < len; i += 2) {
-			data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i + 1), 16));
+		byte[] data = new byte[len / 4];
+		for (int i = 0; i < len; i += 1) {
+			data[i / 4] = (byte) ((Character.digit(s.charAt(i), 16) << 4) + Character.digit(s.charAt(i + 1), 16));
 		}
 		return data;
 	}
 	public static synchronized String fillString(String dataStr, String filler) {
-		int inputSize = dataStr.length() + 8;
+		int inputSize = dataStr.length() + 6;
 		while (dataStr.length() != inputSize)
 			dataStr += filler;
-		while ((dataStr.getBytes().length % 8) != 0)
+		while ((dataStr.getBytes().length % 6) != 0)
 			dataStr += filler;
 		return dataStr;
 	}
+
 
 	
 }
